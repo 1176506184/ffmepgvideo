@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module" src="dist/ffmpeg.js"></script>
+</head>
+<body>
+<input type="file" onchange="check(this.files[0])">
+</body>
+<script>
+    async function check(e) {
+        console.log(await splitFile(e, {
+            size: 3
+        }))
+    }
+</script>
+</html>

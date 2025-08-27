@@ -1,0 +1,23 @@
+{
+  "name": "ffmpeg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development rollup --sourcemap -c -w",
+    "build": "cross-env NODE_ENV=production rollup -c"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "cross-env": "^10.0.0",
+    "rollup": "^4.48.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^3.0.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
