@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="module" src="dist/ffmpeg.js"></script>
+    <script type="module" src="/dist/ffmpeg.js"></script>
 </head>
 <body>
 <input type="file" onchange="check(this.files[0])">
 </body>
 <script>
     async function check(e) {
-        console.log(await checkFileType(e))
+        console.log(await convertFile(e, 'mp3'))
     }
 </script>
 </html>

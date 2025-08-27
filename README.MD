@@ -32,3 +32,9 @@
     }
 </script>
 ````
+
+### 视频转音频
+
+````
+<input type="file" onchange="convertFile(this.files[0],'mp3')"> //结果会返回音频
+````

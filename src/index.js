@@ -12,8 +12,11 @@ await ffmpeg.load({
 });
 
 export async function checkFileType(file) {
+    const fileType = file.type.split('/')[1];
+    const fileExtension = file.name.split('.').pop() || fileType;
+    const inputFileName = `input.${fileExtension}`;
     const fileFFMPEG = await fetchFile(file);
-    await ffmpeg.writeFile('input.mp4', fileFFMPEG);
+    await ffmpeg.writeFile(inputFileName, fileFFMPEG);
     // 使用新版推荐命令格式
     await ffmpeg.ffprobe(["-v",
         "error",
@@ -21,9 +24,29 @@ export async function checkFileType(file) {
         "-of",
         "default=noprint_wrappers=1:nokey=1",
         "-select_streams", "v:0", // 只选取视频流
-        "input.mp4", "-o", "output.json"])
+        inputFileName, "-o", "output.json"])
     const uint8Array = await ffmpeg.readFile('output.json')
     return new TextDecoder().decode(uint8Array)
+}
+
+export async function convertFile(file, outputFormat = 'mp3') {
+    const fileType = file.type.split('/')[1];
+    if (fileType === outputFormat) {
+        return false
+    }
+    const fileExtension = file.name.split('.').pop() || fileType;
+    const inputFileName = `input.${fileExtension}`;
+    const fileFFMPEG = await fetchFile(file);
+    await ffmpeg.writeFile(inputFileName, fileFFMPEG);
+    const outputFileName = `output.${outputFormat}`;  // 根据需要选择输出格式
+    await ffmpeg.exec([
+        '-i', inputFileName,
+        outputFileName
+    ]);
+    // 读取转换后的文件
+    const data = await ffmpeg.readFile(outputFileName);
+    const blob = new Blob([data.buffer], {type: `video/${outputFormat}`});
+    return blobToFile(blob, outputFileName); // 返回转换后的文件（Blob对象）
 }
 
 export async function splitFile(file, options = {
@@ -66,3 +89,4 @@ export async function splitFile(file, options = {
 
 window.checkFileType = checkFileType;
 window.splitFile = splitFile;
+window.convertFile = convertFile;
