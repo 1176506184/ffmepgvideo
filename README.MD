@@ -7,7 +7,7 @@
 
 ## 使用方式
 
-## 检测视频格式
+### 检测视频格式
 
 ````
 <input type="file" onchange="checkType(this.files[0])">
@@ -19,7 +19,7 @@
 </script>
 ````
 
-## 视频分片
+### 视频分片
 
 ````
 <input type="file" onchange="split(this.files[0])">
