@@ -20,6 +20,7 @@ export async function checkFileType(file) {
         "-show_entries", 'stream=codec_name',
         "-of",
         "default=noprint_wrappers=1:nokey=1",
+        "-select_streams", "v:0", // 只选取视频流
         "input.mp4", "-o", "output.json"])
     const uint8Array = await ffmpeg.readFile('output.json')
     return new TextDecoder().decode(uint8Array)
